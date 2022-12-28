@@ -23,7 +23,7 @@ public class login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        emailField = new javax.swing.JTextField();
+        userIdField = new javax.swing.JTextField();
         SignInButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -46,13 +46,13 @@ public class login extends javax.swing.JFrame {
         jLabel1.setText("Sign In");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 71, 167, 80));
 
-        emailField.setToolTipText("Email");
-        emailField.addActionListener(new java.awt.event.ActionListener() {
+        userIdField.setToolTipText("user id");
+        userIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
+                userIdFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 190, 35));
+        jPanel1.add(userIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 190, 35));
 
         SignInButton.setText("Sign in");
         SignInButton.setToolTipText("");
@@ -108,9 +108,9 @@ public class login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+    private void userIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIdFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
+    }//GEN-LAST:event_userIdFieldActionPerformed
 
     private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
         // TODO add your handling code here:
@@ -118,21 +118,24 @@ public class login extends javax.swing.JFrame {
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         // TODO add your handling code here:
-        String id=emailField.getText();
+        String id=userIdField.getText();
         String password=PasswordField.getText();
     try{
-        String sql = "SELECT userId, password FROM users WHERE userId='"+id+"' AND password='"+password+"';";
+        String sql = "SELECT userId,userName, password FROM users WHERE userId='"+id+"' AND password='"+password+"';";
         Connection con=ConnectionProvider.getCon();
         Statement st=con.createStatement();
         ResultSet rs=st.executeQuery(sql);
-        System.out.println(rs);
+        
         if(rs.next()){
+            String name=rs.getString("userName");
+            System.out.println(name);
+            Home home =new Home(name);
             
             this.setVisible(false);
-            new Home().setVisible(true);
+            home.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null,"Incorrect email id or password" );
+            JOptionPane.showMessageDialog(null,"Incorrect User id or password" );
         }
     }catch(Exception e){
     System.out.println(e);}
@@ -184,7 +187,6 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JButton SignInButton;
-    private javax.swing.JTextField emailField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -193,5 +195,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField userIdField;
     // End of variables declaration//GEN-END:variables
 }
