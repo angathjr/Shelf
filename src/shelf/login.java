@@ -1,7 +1,9 @@
-
 package shelf;
 
 import javax.swing.JOptionPane;
+import shelfpackage.ConnectionProvider;
+import java.sql.*;
+
 
 
 public class login extends javax.swing.JFrame {
@@ -62,7 +64,7 @@ public class login extends javax.swing.JFrame {
         jPanel1.add(SignInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 333, 90, 38));
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Email");
+        jLabel2.setText("Admission No");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 175, -1, -1));
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -116,15 +118,15 @@ public class login extends javax.swing.JFrame {
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         // TODO add your handling code here:
-        String email=emailField.getText();
+        String id=emailField.getText();
         String password=PasswordField.getText();
     try{
-        
-//        Connection con=ConnectionProvider.getCon();
-//        Statement st=con.createStatement();
-//        st.executeUpdate("insert into users values('1','angath','"+email+"','"+password+"')");
-        
-        if(email.equals("admin")&& password.equals("admin")){
+        String sql = "SELECT userId, password FROM users WHERE userId='"+id+"' AND password='"+password+"';";
+        Connection con=ConnectionProvider.getCon();
+        Statement st=con.createStatement();
+        ResultSet rs=st.executeQuery(sql);
+        System.out.println(rs);
+        if(rs.next()){
             
             this.setVisible(false);
             new Home().setVisible(true);
