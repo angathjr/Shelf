@@ -8,9 +8,7 @@ import java.sql.*;
 
 public class login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login
-     */
+   
     public login() {
         initComponents();
     }
@@ -118,10 +116,10 @@ public class login extends javax.swing.JFrame {
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         // TODO add your handling code here:
-        String id=userIdField.getText();
+        String userid=userIdField.getText();
         String password=PasswordField.getText();
     try{
-        String sql = "SELECT userId,userName, password FROM users WHERE userId='"+id+"' AND password='"+password+"';";
+        String sql = "SELECT userId,userName, password FROM users WHERE userId='"+userid+"' AND password='"+password+"';";
         Connection con=ConnectionProvider.getCon();
         Statement st=con.createStatement();
         ResultSet rs=st.executeQuery(sql);
@@ -129,7 +127,7 @@ public class login extends javax.swing.JFrame {
         if(rs.next()){
             String name=rs.getString("userName");
             System.out.println(name);
-            Home home =new Home(name);
+            Home home =new Home(name,userid);
             
             this.setVisible(false);
             home.setVisible(true);

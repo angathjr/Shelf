@@ -5,12 +5,15 @@ package shelf;
 public class Home extends javax.swing.JFrame {
     
     
-    public static String userName;
+    public static String userName,userid;
+    
 
   
-    public Home(String userName) {
+    public Home(String userName,String userid) {
         
         this.userName=userName;
+        this.userid=userid;
+        //System.out.println(userid);
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
     }
@@ -23,7 +26,7 @@ public class Home extends javax.swing.JFrame {
         eduBooks = new javax.swing.JButton();
         libBooks = new javax.swing.JButton();
         sellBooks = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        mybooks = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -49,7 +52,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().add(libBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 380, 150, 50));
 
         sellBooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sellBooks.setText("Sell Books");
+        sellBooks.setText("Sell or Rent ");
         sellBooks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sellBooksActionPerformed(evt);
@@ -57,9 +60,9 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(sellBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 473, 150, 50));
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setText("Rent Books");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 566, 150, 50));
+        mybooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mybooks.setText("My Books");
+        getContentPane().add(mybooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 566, 150, 50));
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setText("Orders");
@@ -80,7 +83,8 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText(userName);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 230, 30));
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 230, 110));
 
         pack();
         setLocationRelativeTo(null);
@@ -88,6 +92,7 @@ public class Home extends javax.swing.JFrame {
 
     private void eduBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eduBooksActionPerformed
         // TODO add your handling code here:
+        new EduBooks().setVisible(true);
         
     }//GEN-LAST:event_eduBooksActionPerformed
 
@@ -95,11 +100,12 @@ public class Home extends javax.swing.JFrame {
         
         this.setVisible(false);
         new login().setVisible(true);
+        new EduBooks().setVisible(false);
     }//GEN-LAST:event_logoutActionPerformed
 
     private void sellBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBooksActionPerformed
         // TODO add your handling code here:
-        new sellBook().setVisible(true);
+        new sellBook(userid,userName).setVisible(true);
     }//GEN-LAST:event_sellBooksActionPerformed
 
   
@@ -130,19 +136,19 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home(userName).setVisible(true);
+                new Home(userName,userid).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eduBooks;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton libBooks;
     private javax.swing.JButton logout;
+    private javax.swing.JButton mybooks;
     private javax.swing.JButton sellBooks;
     // End of variables declaration//GEN-END:variables
 }
