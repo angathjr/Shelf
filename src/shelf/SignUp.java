@@ -1,3 +1,5 @@
+package shelf;
+
 
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -95,8 +97,6 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
         getContentPane().add(phoneNoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 422, 250, 36));
-
-        passwordField.setText("jPasswordField1");
         getContentPane().add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 476, 250, 36));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

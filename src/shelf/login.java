@@ -1,9 +1,9 @@
-
 package shelf;
 
 import javax.swing.JOptionPane;
-import java.sql.*;
 import shelfpackage.ConnectionProvider;
+import java.sql.*;
+
 
 
 public class login extends javax.swing.JFrame {
@@ -23,11 +23,13 @@ public class login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        emailField = new javax.swing.JTextField();
+        userIdField = new javax.swing.JTextField();
         SignInButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         PasswordField = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         jLabel4.setText("jLabel4");
@@ -40,16 +42,17 @@ public class login extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Sign In");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 71, 167, 80));
 
-        emailField.setToolTipText("Email");
-        emailField.addActionListener(new java.awt.event.ActionListener() {
+        userIdField.setToolTipText("user id");
+        userIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
+                userIdFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 190, 35));
+        jPanel1.add(userIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 190, 35));
 
         SignInButton.setText("Sign in");
         SignInButton.setToolTipText("");
@@ -60,9 +63,11 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(SignInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 333, 90, 38));
 
-        jLabel2.setText("Email");
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Admission No");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 175, -1, -1));
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("password");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 250, -1, -1));
 
@@ -73,8 +78,20 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 272, 190, 35));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shelf/4.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-220, 0, 1070, 570));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Sign Up here !");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, -1, -1));
+
+        jButton1.setText("Sign Up");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shelf/lib.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,9 +108,9 @@ public class login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+    private void userIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIdFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
+    }//GEN-LAST:event_userIdFieldActionPerformed
 
     private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
         // TODO add your handling code here:
@@ -101,27 +118,36 @@ public class login extends javax.swing.JFrame {
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         // TODO add your handling code here:
-        String email=emailField.getText();
+        String id=userIdField.getText();
         String password=PasswordField.getText();
     try{
+        String sql = "SELECT userId,userName, password FROM users WHERE userId='"+id+"' AND password='"+password+"';";
+        Connection con=ConnectionProvider.getCon();
+        Statement st=con.createStatement();
+        ResultSet rs=st.executeQuery(sql);
         
-//        Connection con=ConnectionProvider.getCon();
-//        Statement st=con.createStatement();
-//        st.executeUpdate("insert into users values('1','angath','"+email+"','"+password+"')");
-        
-        if(email.equals("admin")&& password.equals("admin")){
+        if(rs.next()){
+            String name=rs.getString("userName");
+            System.out.println(name);
+            Home home =new Home(name);
             
             this.setVisible(false);
-            new Home().setVisible(true);
+            home.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null,"Incorrect email id or password" );
+            JOptionPane.showMessageDialog(null,"Incorrect User id or password" );
         }
     }catch(Exception e){
     System.out.println(e);}
         
         
     }//GEN-LAST:event_SignInButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new SignUp().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,12 +187,14 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JButton SignInButton;
-    private javax.swing.JTextField emailField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField userIdField;
     // End of variables declaration//GEN-END:variables
 }

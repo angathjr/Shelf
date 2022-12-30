@@ -3,11 +3,16 @@ package shelf;
 
 
 public class Home extends javax.swing.JFrame {
+    
+    
+    public static String userName;
 
   
-    public Home() {
-        initComponents();
+    public Home(String userName) {
+        
+        this.userName=userName;
         this.setExtendedState(MAXIMIZED_BOTH);
+        initComponents();
     }
 
    
@@ -24,38 +29,44 @@ public class Home extends javax.swing.JFrame {
         logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(66, 63, 65));
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setPreferredSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         usedBooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        usedBooks.setText("Used Books");
+        usedBooks.setText("Educational books");
         usedBooks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usedBooksActionPerformed(evt);
             }
         });
-        getContentPane().add(usedBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 291, 130, 50));
+        getContentPane().add(usedBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 281, 150, 60));
 
         libBooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        libBooks.setText("Library Books");
-        getContentPane().add(libBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 380, 130, 50));
+        libBooks.setText("Stories and novels");
+        getContentPane().add(libBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 380, 150, 50));
 
         sellBooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sellBooks.setText("Sell Books");
-        getContentPane().add(sellBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 473, 130, 50));
+        sellBooks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellBooksActionPerformed(evt);
+            }
+        });
+        getContentPane().add(sellBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 473, 150, 50));
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton5.setText("Rent Books");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 566, 130, 50));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 566, 150, 50));
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setText("Orders");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 659, 130, 50));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 659, 150, 50));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Hello User");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, 200));
+        jLabel1.setText("Hello "+userName);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 200));
 
         logout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         logout.setText("Log Out");
@@ -64,7 +75,7 @@ public class Home extends javax.swing.JFrame {
                 logoutActionPerformed(evt);
             }
         });
-        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 110, 40));
+        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 740, 150, 50));
 
         pack();
         setLocationRelativeTo(null);
@@ -72,7 +83,7 @@ public class Home extends javax.swing.JFrame {
 
     private void usedBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usedBooksActionPerformed
         // TODO add your handling code here:
-        new sellBook().setVisible(true);
+        
     }//GEN-LAST:event_usedBooksActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
@@ -80,6 +91,11 @@ public class Home extends javax.swing.JFrame {
         this.setVisible(false);
         new login().setVisible(true);
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void sellBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBooksActionPerformed
+        // TODO add your handling code here:
+        new sellBook().setVisible(true);
+    }//GEN-LAST:event_sellBooksActionPerformed
 
   
     public static void main(String args[]) {
@@ -109,7 +125,7 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new Home(userName).setVisible(true);
             }
         });
     }
