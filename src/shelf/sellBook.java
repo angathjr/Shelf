@@ -1,21 +1,21 @@
-
 package shelf;
+
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import shelfpackage.ConnectionProvider;
 
-
 public class sellBook extends javax.swing.JFrame {
 
-    public static String userid,username;
-    public sellBook(String userid,String username) {
-        this.userid=userid;
-        this.username=username;
+    public static String userid, username;
+
+    public sellBook(String userid, String username) {
+        this.userid = userid;
+        this.username = username;
         initComponents();
-        
+
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,7 +37,6 @@ public class sellBook extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setForeground(java.awt.Color.darkGray);
         setLocation(new java.awt.Point(0, 0));
@@ -78,6 +77,11 @@ public class sellBook extends javax.swing.JFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 502, 95, -1));
 
         comboField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Educational", "Entertainment" }));
+        comboField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFieldActionPerformed(evt);
+            }
+        });
         getContentPane().add(comboField, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 496, 374, 34));
 
         submitField.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -107,24 +111,41 @@ public class sellBook extends javax.swing.JFrame {
 
     private void submitFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitFieldActionPerformed
         // TODO add your handling code here:
-        int id=Integer.parseInt(userid);
-        String name=nameField.getText();
-        String author=authorField.getText();
-        String publisher=pubField.getText();
-        String edition=editionField.getText();
-        String category=(String)comboField.getSelectedItem();
-        String price =priceField.getText();
-        
-        try{
+        int id = Integer.parseInt(userid);
+        String name = nameField.getText();
+        String author = authorField.getText();
+        String publisher = pubField.getText();
+        String edition = editionField.getText();
+        String category = (String) comboField.getSelectedItem();
+        String price = priceField.getText();
+
+        try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
+            if(category.equals("Entertainment")){
+                priceField.setVisible(false);
+                jLabel6.setVisible(false);
+                price="0";
+            }
             st.executeUpdate("insert into books (userId,bookName,author,publisher,edition,availability,category,seller,price) values('" + id + "','" + name + "','" + author + "','" + publisher + "','" + edition + "','yes','" + category + "','" + username + "','" + price + "')");
+            nameField.setText("");
+            priceField.setText("");
+            authorField.setText("");
+            pubField.setText("");
+            editionField.setText("");
+            JOptionPane.showMessageDialog(null, "Sucessfully added");
+
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "fiedls can't be empty");
 
         }
-        catch(Exception e){
-        System.out.println(e);}
-        
+
     }//GEN-LAST:event_submitFieldActionPerformed
+
+    private void comboFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,7 +177,7 @@ public class sellBook extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new sellBook(userid,username).setVisible(true);
+                new sellBook(userid, username).setVisible(true);
             }
         });
     }

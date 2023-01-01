@@ -1,39 +1,41 @@
-
 package shelf;
+
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import shelfpackage.ConnectionProvider;
 
 public class EduBooks extends javax.swing.JFrame {
 
-    
-    public EduBooks() {
+    public static String userid;
+
+    public EduBooks(String userid) {
+        this.userid = userid;
         initComponents();
-        try{
-         Connection con = ConnectionProvider.getCon();
-         Statement st = con.createStatement();
-         String sql ="select * from books where category='Educational';";
-         ResultSet rs=st.executeQuery(sql);
-         while(rs.next()){
-             String id=String.valueOf(rs.getString("bookId"));
-             String name=rs.getString("bookName");
-             String author=rs.getString("author");
-             String publisher=rs.getString("publisher");
-             String edition=String.valueOf(rs.getString("edition"));
-             String avail=rs.getString("availability");
-             String price=rs.getString("price");
-             String seller=rs.getString("seller");
-                          
-             String tbdata[]={id,name,author,publisher,edition,avail,seller,price};
-             DefaultTableModel tbmodel=(DefaultTableModel)eduTable.getModel();
-             tbmodel.addRow(tbdata);
-         }
-        }catch(Exception e){
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            String sql = "select * from books where category='Educational';";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+
+                String id = String.valueOf(rs.getString("bookId"));
+                String name = rs.getString("bookName");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                String edition = String.valueOf(rs.getString("edition"));
+                String avail = rs.getString("availability");
+                String price = rs.getString("price");
+                String seller = rs.getString("seller");
+
+                String tbdata[] = {id, name, author, publisher, edition, avail, seller, price};
+                DefaultTableModel tbmodel = (DefaultTableModel) eduTable.getModel();
+                tbmodel.addRow(tbdata);
+            }
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,9 +43,11 @@ public class EduBooks extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         eduTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        bookField = new javax.swing.JTextField();
+        confirmButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 204, 204));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -52,6 +56,7 @@ public class EduBooks extends javax.swing.JFrame {
         jLabel1.setText("Educational Books");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 40, -1, -1));
 
+        eduTable.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         eduTable.setForeground(new java.awt.Color(0, 0, 0));
         eduTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,10 +76,41 @@ public class EduBooks extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(eduTable);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 1270, 540));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 1270, 370));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Enter the book id to confirm purchase");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 650, 330, 40));
+        getContentPane().add(bookField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 660, 230, 30));
+
+        confirmButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 100, 40));
 
         setBounds(270, 150, 1350, 793);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+        String bookId = bookField.getText();
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            ResultSet rs=st.executeQuery("select userId from books where bookId='" + bookId + "'");
+            rs.next();
+            String owner=rs.getString("userId");
+            String category=rs.getString("category");
+            st.executeUpdate("insert into orders values('" + userid + "','"+owner+"','" + bookId + "',curdate(),date_add(curdate(),interval 20 day),'"+category+"')");
+            st.executeUpdate("update books set availability='No' where bookId='"+bookId+"'");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,14 +142,17 @@ public class EduBooks extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EduBooks().setVisible(true);
+                new EduBooks(userid).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bookField;
+    private javax.swing.JButton confirmButton;
     private javax.swing.JTable eduTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

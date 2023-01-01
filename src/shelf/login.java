@@ -39,11 +39,13 @@ public class login extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(900, 550));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Sign In");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 71, 167, 80));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 170, 80));
 
+        userIdField.setBackground(new java.awt.Color(204, 204, 204));
         userIdField.setToolTipText("user id");
         userIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,6 +54,8 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(userIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 190, 35));
 
+        SignInButton.setBackground(new java.awt.Color(25, 25, 25));
+        SignInButton.setForeground(new java.awt.Color(255, 255, 255));
         SignInButton.setText("Sign in");
         SignInButton.setToolTipText("");
         SignInButton.addActionListener(new java.awt.event.ActionListener() {
@@ -61,14 +65,17 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(SignInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 333, 90, 38));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Admission No");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 175, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("password");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 250, -1, -1));
 
+        PasswordField.setBackground(new java.awt.Color(204, 204, 204));
         PasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PasswordFieldActionPerformed(evt);
@@ -76,17 +83,21 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 272, 190, 35));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Sign Up here !");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(25, 25, 25));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign Up");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, -1, 20));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shelf/lib.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 570));
@@ -136,7 +147,9 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Incorrect User id or password" );
         }
     }catch(Exception e){
-    System.out.println(e);}
+        System.out.println(e);
+        JOptionPane.showMessageDialog(null,e );
+    }
         
         
     }//GEN-LAST:event_SignInButtonActionPerformed
