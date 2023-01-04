@@ -1,4 +1,3 @@
-
 package shelf;
 
 import java.sql.Connection;
@@ -6,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import shelfpackage.ConnectionProvider;
-
 
 public class Orders extends javax.swing.JFrame {
 
@@ -17,7 +15,6 @@ public class Orders extends javax.swing.JFrame {
         initComponents();
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,53 +81,53 @@ public class Orders extends javax.swing.JFrame {
                 Statement st = con.createStatement();
 //                String sql = "select * from orders where buyer = '" + userid + "'";
 //                ResultSet rs = st.executeQuery(sql);
-                ResultSet d = st.executeQuery("select phoneNumber,emailId,username,bookid,price,purchased_date,due_date,seller from users,orders where userid in (select seller from orders where buyer ='"+userid+"')");
+                ResultSet d = st.executeQuery("select phoneNumber,emailId,username,bookid,price,purchased_date,due_date,seller from users,orders where userid in (select seller from orders where buyer ='" + userid + "')and category='" + category + "'");
 
-                while ( d.next()) {
+                while (d.next()) {
                     String seller = d.getString("seller");
-                    
-                    String ph_no=d.getString("phonenumber");
-                    String name=d.getString("userName");
-                    String email=d.getString("emailId");
+
+                    String ph_no = d.getString("phonenumber");
+                    String name = d.getString("userName");
+                    String email = d.getString("emailId");
                     String bookid = String.valueOf(d.getString("bookId"));
                     String p_date = String.valueOf(d.getString("purchased_date"));
                     String d_date = "null";
                     String price = d.getString("price");
 
-                    String tbdata[] = {bookid,seller,name,email,ph_no,p_date,d_date,price};
+                    String tbdata[] = {bookid, seller, name, email, ph_no, p_date, d_date, price};
                     DefaultTableModel tbmodel = (DefaultTableModel) orderTable.getModel();
                     tbmodel.addRow(tbdata);
                 }
             } catch (Exception e) {
                 System.out.println(e);
             }
-        }else{
+        } else {
             try {
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement();
 //                String sql = "select * from orders where buyer = '" + userid + "'";
 //                ResultSet rs = st.executeQuery(sql);
-                ResultSet d = st.executeQuery("select phoneNumber,emailId,username,bookid,price,purchased_date,due_date,seller from users,orders where userid in (select seller from orders where buyer ='"+userid+"')");
+                ResultSet d = st.executeQuery("select phoneNumber,emailId,username,bookid,price,purchased_date,due_date,seller from users,orders where userid in (select seller from orders where buyer ='" + userid + "')");
 
-                while ( d.next()) {
+                while (d.next()) {
                     String seller = d.getString("seller");
-                    
-                    String ph_no=d.getString("phonenumber");
-                    String name=d.getString("userName");
-                    String email=d.getString("emailId");
+
+                    String ph_no = d.getString("phonenumber");
+                    String name = d.getString("userName");
+                    String email = d.getString("emailId");
                     String bookid = String.valueOf(d.getString("bookId"));
                     String p_date = String.valueOf(d.getString("purchased_date"));
-                    String d_date =String.valueOf(d.getString("due_date"));
+                    String d_date = String.valueOf(d.getString("due_date"));
                     String price = "null";
 
-                    String tbdata[] = {bookid,seller,name,email,ph_no,p_date,d_date,price};
+                    String tbdata[] = {bookid, seller, name, email, ph_no, p_date, d_date, price};
                     DefaultTableModel tbmodel = (DefaultTableModel) orderTable.getModel();
                     tbmodel.addRow(tbdata);
                 }
             } catch (Exception e) {
                 System.out.println(e);
             }
-            
+
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
