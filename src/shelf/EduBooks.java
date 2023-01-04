@@ -101,7 +101,7 @@ public class EduBooks extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("select userId from books where bookId='" + bookId + "'");
+            ResultSet rs=st.executeQuery("select userId,category from books where bookId='" + bookId + "'");
             rs.next();
             String owner=rs.getString("userId");
             String category=rs.getString("category");

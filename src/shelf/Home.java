@@ -125,7 +125,9 @@ public class Home extends javax.swing.JFrame {
         
         this.setVisible(false);
         new login().setVisible(true);
+        new EntertainmentBooks(userid).setVisible(false);
         new EduBooks(userid).setVisible(false);
+        new sellBook(userid,userName).setVisible(false);
     }//GEN-LAST:event_logoutActionPerformed
 
     private void sellBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBooksActionPerformed
