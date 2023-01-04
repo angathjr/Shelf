@@ -101,11 +101,12 @@ public class EduBooks extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("select userId,category from books where bookId='" + bookId + "'");
+            ResultSet rs=st.executeQuery("select userId,category,price from books where bookId='" + bookId + "'");
             rs.next();
             String owner=rs.getString("userId");
             String category=rs.getString("category");
-            st.executeUpdate("insert into orders values('" + userid + "','"+owner+"','" + bookId + "',curdate(),date_add(curdate(),interval 20 day),'"+category+"')");
+            String price=rs.getString("price");
+            st.executeUpdate("insert into orders values('" + userid + "','"+owner+"','" + bookId + "',curdate(),date_add(curdate(),interval 20 day),'"+category+"','"+price+"')");
             st.executeUpdate("update books set availability='No' where bookId='"+bookId+"'");
         } catch (Exception e) {
             System.out.println(e);

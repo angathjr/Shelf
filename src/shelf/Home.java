@@ -1,24 +1,18 @@
-
 package shelf;
 
-
 public class Home extends javax.swing.JFrame {
-    
-    
-    public static String userName,userid;
-    
 
-  
-    public Home(String userName,String userid) {
-        
-        this.userName=userName;
-        this.userid=userid;
+    public static String userName, userid;
+
+    public Home(String userName, String userid) {
+
+        this.userName = userName;
+        this.userid = userid;
         //System.out.println(userid);
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,6 +76,11 @@ public class Home extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Orders");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 659, 150, 50));
 
         logout.setBackground(new java.awt.Color(25, 25, 25));
@@ -118,29 +117,40 @@ public class Home extends javax.swing.JFrame {
     private void eduBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eduBooksActionPerformed
         // TODO add your handling code here:
         new EduBooks(userid).setVisible(true);
-        
+        new EntertainmentBooks(userid).setVisible(false);
+        new sellBook(userid, userName).setVisible(false);
+
     }//GEN-LAST:event_eduBooksActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        
+
         this.setVisible(false);
         new login().setVisible(true);
         new EntertainmentBooks(userid).setVisible(false);
         new EduBooks(userid).setVisible(false);
-        new sellBook(userid,userName).setVisible(false);
+        new sellBook(userid, userName).setVisible(false);
     }//GEN-LAST:event_logoutActionPerformed
 
     private void sellBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBooksActionPerformed
         // TODO add your handling code here:
-        new sellBook(userid,userName).setVisible(true);
+        new sellBook(userid, userName).setVisible(true);
+        new EntertainmentBooks(userid).setVisible(false);
+        new EduBooks(userid).setVisible(false);
     }//GEN-LAST:event_sellBooksActionPerformed
 
     private void libBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libBooksActionPerformed
         // TODO add your handling code here:
         new EntertainmentBooks(userid).setVisible(true);
+        new EduBooks(userid).setVisible(false);
+        new sellBook(userid, userName).setVisible(false);
+
     }//GEN-LAST:event_libBooksActionPerformed
 
-  
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new Orders(userid).setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -168,7 +178,7 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home(userName,userid).setVisible(true);
+                new Home(userName, userid).setVisible(true);
             }
         });
     }
