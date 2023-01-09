@@ -122,12 +122,12 @@ public class sellBook extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            if(category.equals("Entertainment")){
+            if (category.equals("Entertainment")) {
                 priceField.setVisible(false);
                 jLabel6.setVisible(false);
-                price="0";
+                price = "0";
             }
-            st.executeUpdate("insert into books (userId,bookName,author,publisher,edition,availability,category,seller,price) values('" + id + "','" + name + "','" + author + "','" + publisher + "','" + edition + "','yes','" + category + "','" + username + "','" + price + "')");
+            st.executeUpdate("insert into books (userId,bookName,author,publisher,edition,availability,category,seller_name,price) values('" + id + "','" + name + "','" + author + "','" + publisher + "','" + edition + "','yes','" + category + "','" + username + "','" + price + "')");
             nameField.setText("");
             priceField.setText("");
             authorField.setText("");
@@ -145,6 +145,18 @@ public class sellBook extends javax.swing.JFrame {
 
     private void comboFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFieldActionPerformed
         // TODO add your handling code here:
+        String category = (String) comboField.getSelectedItem();
+
+        if (category.equals("Entertainment")) {
+            priceField.setVisible(false);
+            jLabel6.setVisible(false);
+
+        }
+        if (category.equals("Educational")) {
+            priceField.setVisible(true);
+            jLabel6.setVisible(true);
+
+        }
     }//GEN-LAST:event_comboFieldActionPerformed
 
     /**

@@ -1,6 +1,7 @@
 package shelf;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import shelfpackage.ConnectionProvider;
 
@@ -25,7 +26,7 @@ public class EduBooks extends javax.swing.JFrame {
                 String edition = String.valueOf(rs.getString("edition"));
                 String avail = rs.getString("availability");
                 String price = rs.getString("price");
-                String seller = rs.getString("seller");
+                String seller = rs.getString("seller_name");
 
                 String tbdata[] = {id, name, author, publisher, edition, avail, seller, price};
                 DefaultTableModel tbmodel = (DefaultTableModel) eduTable.getModel();
@@ -60,7 +61,7 @@ public class EduBooks extends javax.swing.JFrame {
         eduTable.setForeground(new java.awt.Color(0, 0, 0));
         eduTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Book Id", "Book Name", "Author", "Publisher", "Edition", "Availability", "Seller", "Price"
@@ -74,6 +75,7 @@ public class EduBooks extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        eduTable.setRowHeight(30);
         jScrollPane1.setViewportView(eduTable);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 1270, 370));
@@ -101,13 +103,19 @@ public class EduBooks extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("select userId,category,price from books where bookId='" + bookId + "'");
-            rs.next();
-            String owner=rs.getString("userId");
-            String category=rs.getString("category");
-            String price=rs.getString("price");
-            st.executeUpdate("insert into orders values('" + userid + "','"+owner+"','" + bookId + "',curdate(),date_add(curdate(),interval 20 day),'"+category+"','"+price+"')");
-            st.executeUpdate("update books set availability='No' where bookId='"+bookId+"'");
+            ResultSet rs = st.executeQuery("select userId,category,price from books where bookId='" + bookId + "' and availability='yes'");
+            if (rs.next()) {
+                String owner = rs.getString("userId");
+                String category = rs.getString("category");
+                String price = rs.getString("price");
+                st.executeUpdate("insert into orders values('" + userid + "','" + owner + "','" + bookId + "',curdate(),date_add(curdate(),interval 20 day),'" + category + "','" + price + "')");
+                st.executeUpdate("update books set availability='No' where bookId='" + bookId + "'");
+                bookField.setText(" ");
+                JOptionPane.showMessageDialog(null, "Book Orderd");
+            } else {
+                JOptionPane.showMessageDialog(null, "Book Not available");
+
+            }
         } catch (Exception e) {
             System.out.println(e);
         }

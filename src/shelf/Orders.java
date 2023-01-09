@@ -34,9 +34,11 @@ public class Orders extends javax.swing.JFrame {
         jLabel1.setText("Orders");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 180, 62));
 
+        orderTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        orderTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Book Id", "Seller Id", "Seller Name", "Seller email", "phone No", "date of purchase", "Due date", "Price"
@@ -50,6 +52,7 @@ public class Orders extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        orderTable.setRowHeight(30);
         jScrollPane2.setViewportView(orderTable);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 238, 1280, 530));
@@ -75,8 +78,13 @@ public class Orders extends javax.swing.JFrame {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         String category = (String) comboField.getSelectedItem();
+        DefaultTableModel tbmodel = (DefaultTableModel) orderTable.getModel();
         if (category.equals("Educational")) {
             try {
+                if (tbmodel != null) {
+                    tbmodel.getDataVector().removeAllElements();
+                    tbmodel.fireTableDataChanged();
+                }
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement();
 //                String sql = "select * from orders where buyer = '" + userid + "'";
@@ -95,23 +103,27 @@ public class Orders extends javax.swing.JFrame {
                     String price = d.getString("price");
 
                     String tbdata[] = {bookid, seller, name, email, ph_no, p_date, d_date, price};
-                    DefaultTableModel tbmodel = (DefaultTableModel) orderTable.getModel();
+//                    tbmodel = (DefaultTableModel) orderTable.getModel();
                     tbmodel.addRow(tbdata);
+                    
                 }
             } catch (Exception e) {
                 System.out.println(e);
             }
         } else {
             try {
+                if (tbmodel != null) {
+                    System.out.println("hello");
+                    tbmodel.getDataVector().removeAllElements();
+                    tbmodel.fireTableDataChanged();
+                }
+
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement();
-//                String sql = "select * from orders where buyer = '" + userid + "'";
-//                ResultSet rs = st.executeQuery(sql);
-                ResultSet d = st.executeQuery("select phoneNumber,emailId,username,bookid,price,purchased_date,due_date,seller from users,orders where userid in (select seller from orders where buyer ='" + userid + "')");
+                ResultSet d = st.executeQuery("select phoneNumber,emailId,username,bookid,price,purchased_date,due_date,seller from users,orders where userid in (select seller from orders where buyer ='" + userid + "')and category='" + category + "'");
 
                 while (d.next()) {
                     String seller = d.getString("seller");
-
                     String ph_no = d.getString("phonenumber");
                     String name = d.getString("userName");
                     String email = d.getString("emailId");
@@ -121,7 +133,7 @@ public class Orders extends javax.swing.JFrame {
                     String price = "null";
 
                     String tbdata[] = {bookid, seller, name, email, ph_no, p_date, d_date, price};
-                    DefaultTableModel tbmodel = (DefaultTableModel) orderTable.getModel();
+                    //tbmodel = (DefaultTableModel) orderTable.getModel();
                     tbmodel.addRow(tbdata);
                 }
             } catch (Exception e) {

@@ -138,7 +138,6 @@ public class login extends javax.swing.JFrame {
         
         if(rs.next()){
             String name=rs.getString("userName");
-            System.out.println(name);
             Home home =new Home(name,userid);
             
             this.setVisible(false);

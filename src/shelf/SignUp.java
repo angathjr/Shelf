@@ -34,19 +34,25 @@ public class SignUp extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         admNoField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        sigin = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Sign Up");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 38, -1, -1));
 
         emailField.setToolTipText("Email");
         getContentPane().add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 138, 250, 36));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Admission No.");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 200, -1, -1));
 
@@ -62,15 +68,18 @@ public class SignUp extends javax.swing.JFrame {
         jLabel3.setText("Batch");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 367, 60, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Year");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 310, 43, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Department");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 367, 87, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("phone number");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 429, 100, -1));
 
@@ -99,7 +108,8 @@ public class SignUp extends javax.swing.JFrame {
         getContentPane().add(phoneNoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 422, 250, 36));
         getContentPane().add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 476, 250, 36));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Password");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 483, 100, -1));
 
@@ -120,22 +130,36 @@ public class SignUp extends javax.swing.JFrame {
         });
         getContentPane().add(batchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 360, 117, 36));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("User Name");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 254, -1, -1));
 
         admNoField.setToolTipText("Email");
         getContentPane().add(admNoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 193, 250, 36));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Email ID");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 145, -1, -1));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shelf/4.png"))); // NOI18N
-        jLabel10.setText("jLabel10");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-300, -40, 1300, 700));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("Already have an account ? ");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 590, 180, 20));
 
-        pack();
+        sigin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sigin.setText("Sign in here");
+        sigin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                siginMouseClicked(evt);
+            }
+        });
+        getContentPane().add(sigin, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 590, 100, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shelf/abstract-blur-defocused-bookshelf-library.jpg"))); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1400, -710, 4930, 3250));
+
+        setSize(new java.awt.Dimension(1019, 707));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -187,6 +211,12 @@ public class SignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_batchFieldActionPerformed
 
+    private void siginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_siginMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new login().setVisible(true);
+    }//GEN-LAST:event_siginMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -229,6 +259,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -239,6 +270,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField phoneNoField;
+    private javax.swing.JLabel sigin;
     private javax.swing.JButton signupbutton;
     private javax.swing.JTextField userNameField;
     private javax.swing.JComboBox<String> yearField;

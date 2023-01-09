@@ -56,8 +56,16 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="orderTable">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="8" rowCount="1">
+              <Table columnCount="8" rowCount="0">
                 <Column editable="false" title="Book Id" type="java.lang.Object"/>
                 <Column editable="false" title="Seller Id" type="java.lang.Object"/>
                 <Column editable="false" title="Seller Name" type="java.lang.Object"/>
@@ -68,6 +76,7 @@
                 <Column editable="false" title="Price" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="rowHeight" type="int" value="30"/>
           </Properties>
         </Component>
       </SubComponents>

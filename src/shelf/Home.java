@@ -21,7 +21,7 @@ public class Home extends javax.swing.JFrame {
         libBooks = new javax.swing.JButton();
         sellBooks = new javax.swing.JButton();
         mybooks = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        orders = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -70,18 +70,23 @@ public class Home extends javax.swing.JFrame {
         mybooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         mybooks.setForeground(new java.awt.Color(255, 255, 255));
         mybooks.setText("My Books");
-        getContentPane().add(mybooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 566, 150, 50));
-
-        jButton6.setBackground(new java.awt.Color(25, 25, 25));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Orders");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        mybooks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                mybooksActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 659, 150, 50));
+        getContentPane().add(mybooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 566, 150, 50));
+
+        orders.setBackground(new java.awt.Color(25, 25, 25));
+        orders.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        orders.setForeground(new java.awt.Color(255, 255, 255));
+        orders.setText("Orders");
+        orders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordersActionPerformed(evt);
+            }
+        });
+        getContentPane().add(orders, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 659, 150, 50));
 
         logout.setBackground(new java.awt.Color(25, 25, 25));
         logout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -119,6 +124,9 @@ public class Home extends javax.swing.JFrame {
         new EduBooks(userid).setVisible(true);
         new EntertainmentBooks(userid).setVisible(false);
         new sellBook(userid, userName).setVisible(false);
+        new Orders(userid).setVisible(false);
+        new MyBooks(userid).setVisible(false);
+
 
     }//GEN-LAST:event_eduBooksActionPerformed
 
@@ -126,30 +134,57 @@ public class Home extends javax.swing.JFrame {
 
         this.setVisible(false);
         new login().setVisible(true);
-        new EntertainmentBooks(userid).setVisible(false);
+        new EntertainmentBooks(userid).dispose();
         new EduBooks(userid).setVisible(false);
         new sellBook(userid, userName).setVisible(false);
+        new Orders(userid).setVisible(false);
+        new MyBooks(userid).setVisible(false);
+
     }//GEN-LAST:event_logoutActionPerformed
 
     private void sellBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellBooksActionPerformed
         // TODO add your handling code here:
+
         new sellBook(userid, userName).setVisible(true);
-        new EntertainmentBooks(userid).setVisible(false);
+        new EntertainmentBooks(userid).dispose();
         new EduBooks(userid).setVisible(false);
+        new Orders(userid).dispose();
+        new MyBooks(userid).setVisible(false);
+
     }//GEN-LAST:event_sellBooksActionPerformed
 
     private void libBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libBooksActionPerformed
         // TODO add your handling code here:
         new EntertainmentBooks(userid).setVisible(true);
-        new EduBooks(userid).setVisible(false);
-        new sellBook(userid, userName).setVisible(false);
+        new EduBooks(userid).dispose();
+        new Orders(userid).dispose();
+        new sellBook(userid, userName).dispose();
+        new MyBooks(userid).setVisible(false);
+
 
     }//GEN-LAST:event_libBooksActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void ordersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersActionPerformed
         // TODO add your handling code here:
         new Orders(userid).setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+        new EntertainmentBooks(userid).dispose();
+        new EduBooks(userid).dispose();
+        new sellBook(userid, userName).dispose();
+        new MyBooks(userid).setVisible(false);
+
+
+    }//GEN-LAST:event_ordersActionPerformed
+
+    private void mybooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksActionPerformed
+        // TODO add your handling code here:
+        new MyBooks(userid).setVisible(true);
+        new Orders(userid).setVisible(true);
+        new EntertainmentBooks(userid).dispose();
+        new EduBooks(userid).dispose();
+        new sellBook(userid, userName).dispose();
+
+
+    }//GEN-LAST:event_mybooksActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -185,13 +220,13 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eduBooks;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton libBooks;
     private javax.swing.JButton logout;
     private javax.swing.JButton mybooks;
+    private javax.swing.JButton orders;
     private javax.swing.JButton sellBooks;
     // End of variables declaration//GEN-END:variables
 }

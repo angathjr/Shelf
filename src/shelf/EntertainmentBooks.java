@@ -1,36 +1,37 @@
-
 package shelf;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import shelfpackage.ConnectionProvider;
 
 public class EntertainmentBooks extends javax.swing.JFrame {
 
     public static String userid;
+
     public EntertainmentBooks(String userid) {
-        this.userid=userid;
+        this.userid = userid;
         initComponents();
-        try{
-         Connection con = ConnectionProvider.getCon();
-         Statement st = con.createStatement();
-         String sql ="select * from books where category='Entertainment';";
-         ResultSet rs=st.executeQuery(sql);
-         while(rs.next()){
-             String id=String.valueOf(rs.getString("bookId"));
-             String name=rs.getString("bookName");
-             String author=rs.getString("author");
-             String publisher=rs.getString("publisher");
-             String avail=rs.getString("availability");
-             String seller=rs.getString("seller");
-                          
-             String tbdata[]={id,name,author,publisher,avail,seller};
-             DefaultTableModel tbmodel=(DefaultTableModel)entTable.getModel();
-             tbmodel.addRow(tbdata);
-         }
-        }catch(Exception e){
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            String sql = "select * from books where category='Entertainment';";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String id = String.valueOf(rs.getString("bookId"));
+                String name = rs.getString("bookName");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                String avail = rs.getString("availability");
+                String seller = rs.getString("seller_name");
+
+                String tbdata[] = {id, name, author, publisher, avail, seller};
+                DefaultTableModel tbmodel = (DefaultTableModel) entTable.getModel();
+                tbmodel.addRow(tbdata);
+            }
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -47,6 +48,7 @@ public class EntertainmentBooks extends javax.swing.JFrame {
         confirmButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -59,7 +61,7 @@ public class EntertainmentBooks extends javax.swing.JFrame {
         entTable.setForeground(new java.awt.Color(0, 0, 0));
         entTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Book ID", "Book Name", "Author", "Publisher", "Availability", "Owner"
@@ -73,6 +75,7 @@ public class EntertainmentBooks extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        entTable.setRowHeight(30);
         jScrollPane1.setViewportView(entTable);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 1200, 420));
@@ -106,11 +109,19 @@ public class EntertainmentBooks extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("select userId from books where bookId='" + bookId + "'");
-            rs.next();
-            String owner=rs.getString("userId");
-            st.executeUpdate("insert into orders values('" + userid + "','"+owner+"','" + bookId + "',curdate(),date_add(curdate(),interval 20 day))");
-            st.executeUpdate("update books set availability='No' where bookId='"+bookId+"'");
+            ResultSet rs = st.executeQuery("select userId,price from books where bookId='" + bookId + "' and availability='yes'");
+            if (rs.next()) {
+                String owner = rs.getString("userId");
+                int price = Integer.parseInt(rs.getString("price"));
+                System.out.println(price);
+                st.executeUpdate("insert into orders values('" + userid + "','" + owner + "','" + bookId + "',curdate(),date_add(curdate(),interval 20 day),'Entertainment','" + price + "')");
+                st.executeUpdate("update books set availability='No' where bookId='" + bookId + "'");
+                bookField.setText(" ");
+                JOptionPane.showMessageDialog(null, "Book Orderd");
+            } else {
+                JOptionPane.showMessageDialog(null, "Book Not available");
+
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -120,9 +131,8 @@ public class EntertainmentBooks extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bookFieldActionPerformed
 
-  
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new EntertainmentBooks(userid).setVisible(true);
