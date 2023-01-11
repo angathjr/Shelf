@@ -51,12 +51,15 @@ public class MyBooks extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        updateFiled = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bookstable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bookstable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         bookstable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bookstable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,7 +88,7 @@ public class MyBooks extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("Get Buyer Details");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 100, 230, 70));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 170, 230, 70));
 
         buyeridField.setToolTipText("Enter buyer id");
         buyeridField.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +96,7 @@ public class MyBooks extends javax.swing.JFrame {
                 buyeridFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(buyeridField, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 190, 170, 30));
+        getContentPane().add(buyeridField, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 270, 170, 30));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Search");
@@ -102,9 +105,9 @@ public class MyBooks extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 190, -1, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 270, -1, 30));
 
-        searchTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         searchTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,15 +116,43 @@ public class MyBooks extends javax.swing.JFrame {
             new String [] {
                 "Fields", "Details"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         searchTable.setRowHeight(30);
         jScrollPane2.setViewportView(searchTable);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(882, 280, 440, 320));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 340, 440, 320));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Buyer id :");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 190, 90, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 270, 90, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel4.setText("Update  book  status");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 720, 210, 40));
+
+        updateFiled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateFiledActionPerformed(evt);
+            }
+        });
+        getContentPane().add(updateFiled, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 720, 170, 40));
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 730, -1, -1));
 
         setBounds(270, 150, 1350, 800);
     }// </editor-fold>//GEN-END:initComponents
@@ -174,6 +205,27 @@ public class MyBooks extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buyeridFieldActionPerformed
 
+    private void updateFiledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFiledActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateFiledActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String id = updateFiled.getText();
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            String sql = "update books set availability='yes'  where bookid='" + id + "' ";
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Sucessfully updated");
+            updateFiled.setText(" ");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -210,11 +262,14 @@ public class MyBooks extends javax.swing.JFrame {
     private javax.swing.JTable bookstable;
     private javax.swing.JTextField buyeridField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable searchTable;
+    private javax.swing.JTextField updateFiled;
     // End of variables declaration//GEN-END:variables
 }

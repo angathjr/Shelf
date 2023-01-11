@@ -56,7 +56,7 @@ public class EntertainmentBooks extends javax.swing.JFrame {
         jLabel1.setText("Entertainment Books");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 518, -1));
 
-        entTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        entTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         entTable.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         entTable.setForeground(new java.awt.Color(0, 0, 0));
         entTable.setModel(new javax.swing.table.DefaultTableModel(

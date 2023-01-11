@@ -178,7 +178,7 @@ public class Home extends javax.swing.JFrame {
     private void mybooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksActionPerformed
         // TODO add your handling code here:
         new MyBooks(userid).setVisible(true);
-        new Orders(userid).setVisible(true);
+        new Orders(userid).setVisible(false);
         new EntertainmentBooks(userid).dispose();
         new EduBooks(userid).dispose();
         new sellBook(userid, userName).dispose();

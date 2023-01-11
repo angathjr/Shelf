@@ -57,6 +57,7 @@ public class EduBooks extends javax.swing.JFrame {
         jLabel1.setText("Educational Books");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 40, -1, -1));
 
+        eduTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         eduTable.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         eduTable.setForeground(new java.awt.Color(0, 0, 0));
         eduTable.setModel(new javax.swing.table.DefaultTableModel(

@@ -34,7 +34,7 @@ public class Orders extends javax.swing.JFrame {
         jLabel1.setText("Orders");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 180, 62));
 
-        orderTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        orderTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         orderTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
